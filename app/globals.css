@@ -175,6 +175,147 @@ footer {
   animation: pulse 1.8s ease-in-out infinite;
 }
 
+.signal-copy.is-live {
+  color: #ff5877;
+}
+
+.signal-copy.is-live i {
+  border-radius: 50%;
+  background: #ff395f;
+  box-shadow: 0 0 18px rgba(255, 57, 95, 0.9);
+}
+
+.live-takeover {
+  position: relative;
+  width: min(1500px, calc(100% - 112px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.55fr);
+  gap: clamp(26px, 4vw, 58px);
+  align-items: center;
+  margin: 42px auto 4px;
+  padding: clamp(22px, 3vw, 42px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 77, 113, 0.42);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 89% 14%, rgba(255, 57, 95, 0.2), transparent 28rem),
+    linear-gradient(135deg, rgba(20, 40, 255, 0.18), rgba(9, 10, 22, 0.88) 46%),
+    rgba(8, 9, 19, 0.88);
+  box-shadow:
+    0 38px 110px rgba(0, 0, 0, 0.48),
+    0 0 100px rgba(255, 57, 95, 0.12);
+  backdrop-filter: blur(30px);
+}
+
+.live-takeover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.06), transparent 62%);
+  transform: translateX(-100%);
+  animation: live-scan 5s ease-in-out infinite;
+}
+
+.live-stage {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  background: #000;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.52);
+}
+
+.live-stage iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.live-takeover-copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.live-status-pill {
+  width: fit-content;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 86, 119, 0.6);
+  background: rgba(255, 57, 95, 0.12);
+  color: #ff7891;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+}
+
+.live-status-pill i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff395f;
+  box-shadow: 0 0 16px rgba(255, 57, 95, 0.9);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.live-overline {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.21em;
+}
+
+.live-takeover-copy h2 {
+  margin-bottom: 18px;
+  font-family: Impact, "Arial Narrow", sans-serif;
+  font-size: clamp(36px, 4.1vw, 66px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+}
+
+.live-audience {
+  margin-bottom: 24px;
+  color: #d7d9eb;
+  font-size: 14px;
+}
+
+.button-live {
+  margin-bottom: 18px;
+  background: #ff395f;
+  box-shadow: 0 18px 50px rgba(255, 57, 95, 0.28);
+}
+
+.button-live:hover {
+  box-shadow: 0 22px 64px rgba(255, 57, 95, 0.44);
+}
+
+.live-takeover-copy > small {
+  display: block;
+  max-width: 360px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.is-live-mode .ambient-one {
+  background: linear-gradient(135deg, var(--blue), #ff395f);
+  opacity: 0.48;
+}
+
+.is-live-mode .hero {
+  padding-top: 56px;
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 0.82fr) minmax(620px, 1.18fr);
@@ -731,8 +872,20 @@ footer > a {
   }
 }
 
+@keyframes live-scan {
+  0%,
+  22% {
+    transform: translateX(-100%);
+  }
+  70%,
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @media (max-width: 1180px) {
   .topbar,
+  .live-takeover,
   .hero,
   .recent,
   footer {
@@ -741,6 +894,14 @@ footer > a {
 
   .hero {
     grid-template-columns: 1fr;
+  }
+
+  .live-takeover {
+    grid-template-columns: 1fr;
+  }
+
+  .live-takeover-copy {
+    max-width: 760px;
   }
 
   .hero-copy {
@@ -778,6 +939,7 @@ footer > a {
 
 @media (max-width: 640px) {
   .topbar,
+  .live-takeover,
   .hero,
   .recent,
   footer {
@@ -804,6 +966,29 @@ footer > a {
   .hero {
     gap: 42px;
     padding: 48px 0 62px;
+  }
+
+  .live-takeover {
+    gap: 24px;
+    margin-top: 26px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .live-stage {
+    border-radius: 12px;
+  }
+
+  .live-status-pill {
+    margin-bottom: 18px;
+  }
+
+  .live-takeover-copy h2 {
+    font-size: clamp(34px, 11vw, 50px);
+  }
+
+  .button-live {
+    width: 100%;
   }
 
   .eyebrow {
